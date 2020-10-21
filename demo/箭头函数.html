@@ -1,0 +1,24 @@
+<script>
+    //传统
+    var f1 = function(a) {
+        return a
+    }
+    console.log(f1())
+
+    //ES6
+    var f2 = a => a
+    console.log(f2())
+
+    //当箭头函数没有参数或者有多个参数，要用()括起来
+    //当箭头函数函数体有多行语句时，可以省略{},结果会自动返回
+    //当只有一行语句，并且需要返回结果时，可以省略{},结果会自动返回
+    var f3 = (a, b) => {
+        let result = a + b
+        return result
+    }
+    console.log(f3(2, 3))
+
+    var f4 = (a, b) => a + b
+    console.log(f4(2, 3))
+        //箭头函数多用于匿名函数的定义
+</script>
