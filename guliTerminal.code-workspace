@@ -1,3 +1,16 @@
 {
-	"folders": []
+	"folders": [
+		{
+			"path": "axios"
+		},
+		{
+			"path": "demo"
+		},
+		{
+			"path": "vue"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "demo"
+	}
 }

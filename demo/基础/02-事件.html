@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-on 指令绑定事件，click指定绑定的事件类型, 事件发生时调用vue中methods节点中定义的方法-->
+        <button v-on:click='search()'>查询</button>
+
+        <p>查询结果:{{searchMap.keyWord}}</p>
+        <p><a :href="result.site" target="_blank">{{result.title}}</a></p>
+
+        <!-- v-on 指令的简写形式 -->
+        <button @click="search()">简写查询</button>
+    </div>
+    <script src="../../vue/vue.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                searchMap: {
+                    keyWord: 'ABC'
+                },
+                //查询结果
+                result: {},
+            },
+            methods: {
+                search() {
+                    console.log('search')
+                    this.result = {
+                        "title": "ABC",
+                        "site": "http://www.baidu.com"
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

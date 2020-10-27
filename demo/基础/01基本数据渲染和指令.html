@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!--如果要将模型数据绑定在html属性中，则使用 v-bind 指令
+            此时title中显示的是模型数据-->
+        <h1 v-bind:title="message">
+            {{content}}
+        </h1>
+
+        <!--- v-bind 指令的简写形式 -->
+        <h1 :title="message">{{content}}</h1>
+
+        <!-- v-bind:value 只能进行单向数据渲染-->
+        <input type="text" v-bind:value="searchMap.keyWord">
+        <!-- v-model 可以进行双向的数据绑定 -->
+        <input type="text" v-model="searchMap.keyWord">
+
+        <p> v-model双向数据绑定: {{searchMap.keyWord}}</p>
+
+    </div>
+    <script src="../../vue/vue.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                content: '标题',
+                message: '页面加载于' + new Date().toLocaleDateString(),
+
+                searchMap: {
+                    keyWord: 'ABC'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
