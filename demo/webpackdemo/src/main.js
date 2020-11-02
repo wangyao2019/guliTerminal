@@ -1,3 +1,4 @@
+require('./style.css');
 const common = require('./common')
 const utils = require('./utils')
 

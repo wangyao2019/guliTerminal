@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "vue"
+		},
+		{
+			"path": "vue-admin-template-master"
 		}
 	],
 	"settings": {
