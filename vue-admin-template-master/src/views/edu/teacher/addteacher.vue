@@ -44,18 +44,18 @@
 </template>
 
 <script>
-import teacher from "@/api/edu/teacher";
+import teacherApi from "@/api/edu/teacher";
 
 export default {
   data() {
     return {
       teacher: {
-        name: "",
+        name: null,
         sort: 0,
         level: 1,
-        career: "",
-        intro: "",
-        avatar: "",
+        career: null,
+        intro: null,
+        avatar: null,
       },
 
       rules: {
@@ -78,35 +78,93 @@ export default {
     };
   },
 
+  created() {
+    if (this.$route.params && this.$route.params.id) {
+      const id = this.$route.params.id;
+      this.fetchDataById(id);
+    }
+  },
+
   methods: {
+    testFunc() {
+      this.saveBtnDisabled = true;
+      this.saveData();
+    },
+
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.saveBtnDisabled = true;
-          this.saveData();
-        } else {
-          return false;
-        }
-      });
+      //"submitForm('teacher')"
+      if (!this.teacher.id) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.saveBtnDisabled = true;
+            this.saveData();
+          } else {
+            return false;
+          }
+        });
+      } else {
+        this.updateTeacher();
+      }
     },
 
     saveData() {
-      teacher
+      teacherApi
         .addNewTeacher(this.teacher)
         .then((response) => {
-          console.log(response);
-          return this.$message({
-            type: "success",
-            message: "保存成功!",
-          });
+          if (response.success) {
+            this.$router.push({ path: "/teacher/teacherList" });
+            return this.$message({
+              type: "success",
+              message: "保存成功!",
+            });
+          } else {
+            this.$message({
+              type: "error",
+              message: response.data.message,
+            });
+            this.saveBtnDisabled = false;
+          }
         })
-        .then((resposne) => {
-          this.$router.push({ path: "/teacher/teacherList" });
+        .catch((response) => {
+          console.log(response.success);
+          this.$message({
+            type: "error",
+            message: "保存失败",
+          });
+          this.saveBtnDisabled = false;
+        });
+    },
+
+    updateTeacher() {
+      teacherApi
+        .updateByID(this.teacher)
+        .then((response) => {
+          if (response.success) {
+            this.$router.push({ path: "/teacher/teacherList" });
+            return this.$message({
+              type: "success",
+              message: "保存成功!",
+            });
+          }
         })
         .catch((response) => {
           this.$message({
             type: "error",
-            message: "保存失败",
+            message: response.message,
+          });
+        });
+    },
+
+    fetchDataById(id) {
+      teacherApi
+        .getById(id)
+        .then((response) => {
+          this.teacher = response.data.teacher;
+        })
+        .catch((response) => {
+          this.$message({
+            type: "error",
+            message: "获取数据失败",
           });
         });
     },

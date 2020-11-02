@@ -26,6 +26,21 @@ export default {
             url: `/edu/teacher/delete/${teacherID}`,
             method: 'delete',
         })
+    },
+
+    getById(teacherId){
+        return request({
+            url:`/edu/teacher/getTeacherByID/${teacherId}`,
+            method:'get',
+        })
+    },
+
+    updateByID(teacher){
+        return request({
+            url:`/edu/teacher/updateByID/${teacher.id}`,
+            method:'put',
+            data:teacher
+        })
     }
 
 }
