@@ -5,7 +5,7 @@ export default {
 
     teacherList(page, limit, teacherQuery) {
         return request({
-            url: `/edu/teacher/pageTeacherCondition/${page}/${limit}`,
+            url: `/eduService/teacher/pageTeacherCondition/${page}/${limit}`,
             method: 'post',
             // params
             //data 把对象转换成json传递l
@@ -15,7 +15,7 @@ export default {
 
     addNewTeacher(teacher) {
         return request({
-            url: `/edu/teacher/addNewTeacher`,
+            url: `/eduService/teacher/addNewTeacher`,
             method: 'post',
             data:teacher
         })
@@ -23,21 +23,21 @@ export default {
 
     removeById(teacherID){
         return request({
-            url: `/edu/teacher/delete/${teacherID}`,
+            url: `/eduService/teacher/delete/${teacherID}`,
             method: 'delete',
         })
     },
 
     getById(teacherId){
         return request({
-            url:`/edu/teacher/getTeacherByID/${teacherId}`,
+            url:`/eduService/teacher/getTeacherByID/${teacherId}`,
             method:'get',
         })
     },
 
     updateByID(teacher){
         return request({
-            url:`/edu/teacher/updateByID/${teacher.id}`,
+            url:`/eduService/teacher/updateByID/${teacher.id}`,
             method:'put',
             data:teacher
         })

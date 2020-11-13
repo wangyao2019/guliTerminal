@@ -85,6 +85,7 @@
       layout="total, prev, pager, next, jumper"
       @current-change="fetchData"
     />
+    
   </div>
 </template>
 
