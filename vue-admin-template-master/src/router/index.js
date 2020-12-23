@@ -22,147 +22,169 @@ import Layout from '../views/layout/Layout'
   }
 **/
 export const constantRouterMap = [{
-        path: '/login',
+    path: '/login',
+    component: () =>
+        import('@/views/login/index'),
+    hidden: true
+},
+{
+    path: '/404',
+    component: () =>
+        import('@/views/404'),
+    hidden: true
+},
+
+{
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    name: 'Dashboard',
+    hidden: true,
+    children: [{
+        path: 'dashboard',
         component: () =>
-            import ('@/views/login/index'),
+            import('@/views/dashboard/index')
+    }]
+},
+
+{
+    path: '/teacher',
+    component: Layout,
+    redirect: '/teacher/table',
+    name: '讲师管理',
+    meta: { title: '讲师管理', icon: 'example' },
+    children: [{
+        path: 'teacherList',
+        name: '讲师列表',
+        component: () =>
+            import('@/views/edu/teacher/teacherList'),
+        meta: { title: '讲师列表', icon: 'table' }
+    },
+    {
+        path: 'addTeacher',
+        name: '添加讲师',
+        component: () =>
+            import('@/views/edu/teacher/addTeacher'),
+        meta: { title: '添加讲师', icon: 'tree' }
+    },
+
+    {
+        path: 'edit/:id',
+        name: '修改讲师',
+        component: () =>
+            import('@/views/edu/teacher/addTeacher'),
+        meta: { title: '修改讲师', icon: 'tree' },
         hidden: true
     },
-    {
-        path: '/404',
-        component: () =>
-            import ('@/views/404'),
-        hidden: true
-    },
 
     {
-        path: '/',
+        path: '/edu/subject',
         component: Layout,
-        redirect: '/dashboard',
-        name: 'Dashboard',
-        hidden: true,
-        children: [{
-            path: 'dashboard',
-            component: () =>
-                import ('@/views/dashboard/index')
-        }]
-    },
-
-    {
-        path: '/teacher',
-        component: Layout,
-        redirect: '/teacher/table',
-        name: '讲师管理',
-        meta: { title: '讲师管理', icon: 'example' },
-        children: [{
-                path: 'teacherList',
-                name: '讲师列表',
-                component: () =>
-                    import ('@/views/edu/teacher/teacherList'),
-                meta: { title: '讲师列表', icon: 'table' }
+        redirect: '/edu/subject/list',
+        name: 'Subject',
+        meta: { title: '课程分类管理', icon: 'nested' },
+        children: [
+            {
+                path: 'list',
+                name: 'EduSubjectList',
+                component: () => import('@/views/edu/subject/list'),
+                meta: { title: '课程分类列表' }
             },
             {
-                path: 'addTeacher',
-                name: '添加讲师',
-                component: () =>
-                    import ('@/views/edu/teacher/addTeacher'),
-                meta: { title: '添加讲师', icon: 'tree' }
-            },
-
-            {
-                path: 'edit/:id',
-                name: '修改讲师',
-                component: () =>
-                    import ('@/views/edu/teacher/addTeacher'),
-                meta: { title: '修改讲师', icon: 'tree' },
-                hidden:true
+                path: 'import',
+                name: 'EduSubjectImport',
+                component: () => import('@/views/edu/subject/import'),
+                meta: { title: '导入课程分类' }
             }
         ]
-    },
+    }
+    ]
+},
 
-    {
-        path: '/form',
-        component: Layout,
+{
+    path: '/form',
+    component: Layout,
+    children: [{
+        path: 'index',
+        name: 'Form',
+        component: () =>
+            import('@/views/form/index'),
+        meta: { title: 'Form', icon: 'form' }
+    }]
+},
+
+{
+    path: '/nested',
+    component: Layout,
+    redirect: '/nested/menu1',
+    name: 'Nested',
+    meta: {
+        title: 'Nested',
+        icon: 'nested'
+    },
+    children: [{
+        path: 'menu1',
+        component: () =>
+            import('@/views/nested/menu1/index'), // Parent router-view
+        name: 'Menu1',
+        meta: { title: 'Menu1' },
         children: [{
-            path: 'index',
-            name: 'Form',
+            path: 'menu1-1',
             component: () =>
-                import ('@/views/form/index'),
-            meta: { title: 'Form', icon: 'form' }
-        }]
-    },
-
-    {
-        path: '/nested',
-        component: Layout,
-        redirect: '/nested/menu1',
-        name: 'Nested',
-        meta: {
-            title: 'Nested',
-            icon: 'nested'
+                import('@/views/nested/menu1/menu1-1'),
+            name: 'Menu1-1',
+            meta: { title: 'Menu1-1' }
         },
-        children: [{
-                path: 'menu1',
+        {
+            path: 'menu1-2',
+            component: () =>
+                import('@/views/nested/menu1/menu1-2'),
+            name: 'Menu1-2',
+            meta: { title: 'Menu1-2' },
+            children: [{
+                path: 'menu1-2-1',
                 component: () =>
-                    import ('@/views/nested/menu1/index'), // Parent router-view
-                name: 'Menu1',
-                meta: { title: 'Menu1' },
-                children: [{
-                        path: 'menu1-1',
-                        component: () =>
-                            import ('@/views/nested/menu1/menu1-1'),
-                        name: 'Menu1-1',
-                        meta: { title: 'Menu1-1' }
-                    },
-                    {
-                        path: 'menu1-2',
-                        component: () =>
-                            import ('@/views/nested/menu1/menu1-2'),
-                        name: 'Menu1-2',
-                        meta: { title: 'Menu1-2' },
-                        children: [{
-                                path: 'menu1-2-1',
-                                component: () =>
-                                    import ('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                                name: 'Menu1-2-1',
-                                meta: { title: 'Menu1-2-1' }
-                            },
-                            {
-                                path: 'menu1-2-2',
-                                component: () =>
-                                    import ('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                                name: 'Menu1-2-2',
-                                meta: { title: 'Menu1-2-2' }
-                            }
-                        ]
-                    },
-                    {
-                        path: 'menu1-3',
-                        component: () =>
-                            import ('@/views/nested/menu1/menu1-3'),
-                        name: 'Menu1-3',
-                        meta: { title: 'Menu1-3' }
-                    }
-                ]
+                    import('@/views/nested/menu1/menu1-2/menu1-2-1'),
+                name: 'Menu1-2-1',
+                meta: { title: 'Menu1-2-1' }
             },
             {
-                path: 'menu2',
+                path: 'menu1-2-2',
                 component: () =>
-                    import ('@/views/nested/menu2/index'),
-                meta: { title: 'menu2' }
+                    import('@/views/nested/menu1/menu1-2/menu1-2-2'),
+                name: 'Menu1-2-2',
+                meta: { title: 'Menu1-2-2' }
             }
+            ]
+        },
+        {
+            path: 'menu1-3',
+            component: () =>
+                import('@/views/nested/menu1/menu1-3'),
+            name: 'Menu1-3',
+            meta: { title: 'Menu1-3' }
+        }
         ]
     },
-
     {
-        path: 'external-link',
-        component: Layout,
-        children: [{
-            path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-            meta: { title: 'External Link', icon: 'link' }
-        }]
-    },
+        path: 'menu2',
+        component: () =>
+            import('@/views/nested/menu2/index'),
+        meta: { title: 'menu2' }
+    }
+    ]
+},
 
-    { path: '*', redirect: '/404', hidden: true }
+{
+    path: 'external-link',
+    component: Layout,
+    children: [{
+        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+        meta: { title: 'External Link', icon: 'link' }
+    }]
+},
+
+{ path: '*', redirect: '/404', hidden: true }
 ]
 
 export default new Router({
